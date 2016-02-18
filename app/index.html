@@ -9,8 +9,8 @@
       <ul data-bind="foreach: websites">
         <li>
           <span data-bind="text: $data"></span>
-          <a data-bind="click: $root.runWebsite">serve</a>
-          <a data-bind="click: $root.removeWebsite">x</a>
+          <button data-bind="click: $root.runWebsite">serve</button>
+          <button data-bind="click: $root.removeWebsite">x</button>
         </li>
       </ul>
       <div>
