@@ -1,0 +1,27 @@
+{
+  "name": "jekyll-manager",
+  "homepage": "https://github.com/simonv3/jekyll-manager#readme",
+  "authors": [
+    "Simon <svansintjan@gmail.com>"
+  ],
+  "description": "a jekyll manager",
+  "main": "README.md",
+  "moduleType": [],
+  "keywords": [
+    "jekyll",
+    "manager",
+    "CMS"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "~3.4.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "jekyll-manager",
+  "version": "0.0.1",
+  "description": "An Electron Jekyll Manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonv3/jekyll-manager.git"
+  },
+  "keywords": [
+    "Electron",
+    "jekyll",
+    "manager",
+  ],
+  "author": "Simon Vansintjan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simonv3/jekyll-manager/issues"
+  },
+  "homepage": "https://github.com/simonv3/jekyll-manager#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}

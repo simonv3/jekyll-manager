@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div>
+      <ul data-bind="foreach: websites">
+        <li>
+          <span data-bind="text: $data"></span>
+          <a data-bind="click: $root.runWebsite">serve</a>
+          <a data-bind="click: $root.removeWebsite">x</a>
+        </li>
+      </ul>
+      <div>
+        <input data-bind="value: newWebsite" type="input"/>
+      </div>
+      <button data-bind="click: addWebsite">Create</button>
+    </div>
+    <script type='text/javascript' src='../bower_components/knockout/dist/knockout.js'></script>
+    <script src="app.js"></script>
+  </body>
+</html>
