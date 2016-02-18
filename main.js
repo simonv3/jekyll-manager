@@ -1,10 +1,21 @@
 'use strict';
 
 const electron = require('electron');
+const fs = require('fs');
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
+
+// fs.access('.websites', fs.F_OK, function(err){
+//   if (err) {
+//     console.log('creating websites')
+//     fs.mkdir('.websites', function(err, resp) {
+//       if (err) console.log(err);
+//       return false;
+//     })
+//   }
+// })
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

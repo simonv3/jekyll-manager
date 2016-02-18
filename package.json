@@ -13,7 +13,7 @@
   "keywords": [
     "Electron",
     "jekyll",
-    "manager",
+    "manager"
   ],
   "author": "Simon Vansintjan",
   "license": "MIT",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/simonv3/jekyll-manager#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.36.0"
+    "electron-prebuilt": "^0.36.0",
+    "electron-connect": "^0.3.7",
+    "gulp": "^3.9.1"
   }
 }
