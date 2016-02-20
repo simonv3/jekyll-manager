@@ -25,5 +25,10 @@
     "electron-prebuilt": "^0.36.0",
     "electron-connect": "^0.3.7",
     "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "rimraf": "^2.5.2",
+    "walk": "^2.3.9",
+    "watch": "^0.17.1"
   }
 }
