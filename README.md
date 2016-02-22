@@ -1,6 +1,10 @@
 # Jekyll Manager
 
-For now, this is largely an experiment with Electron
+> An experiment with electron.
+
+Hyde: A Jekyll Manager lets you locally manager your Jekyll sites' content.
+Note that this isn't a theme editor, though it enables theme editing.
+It's first and foremost a content editor, focusing on making Jekyll themes manageable by people who don't live in the terminal or command line.
 
 ## To get it running:
 

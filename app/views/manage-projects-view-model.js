@@ -6,6 +6,8 @@ module.exports = function ManageProjectsViewModel () {
   self.newWebsite = ko.observable('')
   self.chosenWebsiteId = ko.observable()
   self.chosenWebsiteData = ko.observable()
+  self.chosenMarkdownFileId = ko.observable()
+  self.chosenMarkdownFile = ko.observable()
   self.websites = ko.observableArray([])
 
   self.addWebsite = function () {
@@ -44,6 +46,18 @@ module.exports = function ManageProjectsViewModel () {
     WebsitesManager.getWebsiteMarkdownFiles(website)
       .then(function (websiteObj) {
         self.chosenWebsiteData(websiteObj)
+      }, function (err) {
+        console.log(err)
+      })
+  }
+
+  self.openMarkdownFile = function (file) {
+    console.log(file)
+    self.chosenMarkdownFileId(file)
+    WebsitesManager.getMarkdownFileContent(file)
+      .then(function (fileContent) {
+        console.log(fileContent)
+        self.chosenMarkdownFile(fileContent)
       }, function (err) {
         console.log(err)
       })

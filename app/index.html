@@ -2,32 +2,50 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Hyde - Jekyll Manager</title>
+    <link rel="stylesheet" type="text/css" href="style/build/main.css"  media="screen"></link>
   </head>
   <body>
 
+    <h1>Hyde: A Jekyll Manager</h1>
+
     <!-- websites list -->
     <div>
-      <ul data-bind="foreach: websites">
+      <h2>Your Websites:</h2>
+      <ul class="your-websites" data-bind="foreach: websites">
         <li>
-          <span data-bind="text: $data, click: $root.openWebsite"></span>
-          <button data-bind="click: $root.runWebsite">serve</button>
-          <button data-bind="click: $root.removeWebsite">x</button>
+          <span class="clickable" data-bind="text: $data, click: $root.openWebsite"></span>
+          <div class="site-actions">
+            <button data-bind="click: $root.runWebsite">serve</button>
+            <button data-bind="click: $root.removeWebsite">x</button>
+          </div>
         </li>
       </ul>
-      <div>
+      <form>
+        <p>Create a new website?</p>
+        <label>Site Name:</label>
         <input data-bind="value: newWebsite" type="input"/>
-      </div>
-      <button data-bind="click: addWebsite">Create</button>
+        <button data-bind="click: addWebsite">Create</button>
+      </form>
     </div>
 
     <!-- files -->
-    <div class="viewWebsiteFiles"
+    <div class="view-website-files"
       data-bind="with: chosenWebsiteData">
+      <h2>Website Content Files</h2>
       <ul data-bind="foreach: markdownFiles">
-        <li data-bind="text: name">
+        <li class="clickable" data-bind="text: name, click: $root.openMarkdownFile">
         </li>
       </ul>
+    </div>
+
+    <!-- file -->
+    <div class="view-markdown-file"
+      data-bind="with: chosenMarkdownFile">
+      <h2>Edit Content</h2>
+      <textarea data-bind="text: $data">
+      </textarea>
+      <small>Content won't be saved, we're just not there yet!</small>
     </div>
 
     <script type='text/javascript' src='../bower_components/knockout/dist/knockout.js'></script>

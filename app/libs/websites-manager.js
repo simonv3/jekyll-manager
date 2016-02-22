@@ -122,6 +122,18 @@ module.exports = {
     })
 
     return promise
+  },
+
+  getMarkdownFileContent (file) {
+    console.log(file.dirPath)
+    const promise = new Promise(function (resolve, reject) {
+      fs.readFile(file.dirPath, 'utf8', function (err,data) {
+        if (err) reject(err)
+        resolve(data)
+      })
+    })
+
+    return promise
   }
 
 }

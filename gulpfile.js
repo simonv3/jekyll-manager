@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-var gulp = require('gulp');
-var electron = require('electron-connect').server.create();
+var gulp = require('gulp')
+var electron = require('electron-connect').server.create()
 
 // var electron = require('../../').server.create({
 //   useGlobalElectron: true,
@@ -10,7 +10,7 @@ var electron = require('electron-connect').server.create();
 
 gulp.task('serve', function () {
   // Start browser process
-  electron.start();
+  electron.start()
 
   // // Add an argument
   // electron.start('Hoge!');
@@ -24,21 +24,21 @@ gulp.task('serve', function () {
   // });
 
   // Restart browser process
-  gulp.watch('main.js', electron.restart);
+  gulp.watch('main.js', electron.restart)
 
   // Reload renderer process
   gulp.watch(['app/app.js', 'app/index.html'], electron.reload);
-});
+})
 
 gulp.task('reload:browser', function () {
   // Restart main process
-  electron.restart();
-});
+  electron.restart()
+})
 
 gulp.task('reload:renderer', function () {
   // Reload renderer process
-  electron.reload();
-});
+  electron.reload()
+})
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve'])
 
