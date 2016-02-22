@@ -6,6 +6,8 @@ Hyde: A Jekyll Manager lets you locally manager your Jekyll sites' content.
 Note that this isn't a theme editor, though it enables theme editing.
 It's first and foremost a content editor, focusing on making Jekyll themes manageable by people who don't live in the terminal or command line.
 
+![Screenshot](http://i.imgur.com/lAfxLkJ.png)
+
 ## To get it running:
 
 ```
