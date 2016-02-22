@@ -9,7 +9,7 @@ module.exports = {
     var resp = ''
 
     child.stdout.on('data', function (buffer) { resp += buffer.toString() })
-    child.stdout.on('end', function () { cb(resp) })
+    child.stdout.on('end', function () { cb(null, resp) })
   },
 
   run_jekyll_init (website, cb) {
@@ -19,7 +19,7 @@ module.exports = {
     var resp = ''
 
     child.stdout.on('data', function (buffer) { resp += buffer.toString() })
-    child.stdout.on('end', function () { cb(resp) })
+    child.stdout.on('end', function () { cb(null, resp) })
   }
 }
 

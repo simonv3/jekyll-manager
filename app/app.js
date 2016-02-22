@@ -5,9 +5,17 @@ var ManageProjectsViewModel = require('./views/manage-projects-view-model')
 
 const mpvm = new ManageProjectsViewModel()
 
-WebsitesManager.watchWebsitesList(function (dirs) {
-  mpvm.setWebsites(dirs)
-})
+// The below is duplicate and probably not necessary.
+const callbackFunc = function () {
+  WebsitesManager.updateWebsitesList()
+    .then(function (dirs) {
+      mpvm.setWebsites(dirs)
+    }, function (err) {
+      console.log(err)
+    })
+}
+
+WebsitesManager.watchWebsitesList(callbackFunc)
 
 WebsitesManager.updateWebsitesList()
   .then(function (dirs) {

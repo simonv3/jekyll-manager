@@ -10,38 +10,51 @@ const websitesFolder = '.websites'
 
 module.exports = {
 
+  watchWebsitesListCallbackFunction: null,
+
   watchWebsitesList (callback) {
     const self = this
     watch(websitesFolder, {recursive: false}, function (websites) {
-      self.updateWebsitesList(callback)
+      console.log('things changed')
+      callback()
+      return self.updateWebsitesList()
     })
   },
 
-  createWebsiteDirIfNotExist (callback) {
-    fs.access('.websites', fs.F_OK, function (err) {
-      if (err) {
-        console.log('creating websites directory')
-        fs.mkdir(websitesFolder, function (err, resp) {
-          if (err) console.log(err)
-          return callback()
-        })
-      } else {
-        return callback()
-      }
-    })
-  },
-
-  createWebsite (website, callback) {
-    this.createWebsiteDirIfNotExist(function () {
-      fs.mkdir(websitesFolder + '/' + website, function (err) {
-        if (err) throw (err)
-
-        JekyllManager.run_jekyll_init(website, function (err, resp) {
-          if (err) console.log(err)
-          return callback(err, resp)
-        })
+  createWebsiteDirIfNotExist () {
+    const promise = new Promise(function (resolve, reject) {
+      fs.access(websitesFolder, fs.F_OK, function (err) {
+        if (err) {
+          fs.mkdir(websitesFolder, function (err) {
+            if (err) reject(err)
+            resolve()
+          })
+        } else {
+          resolve()
+        }
       })
     })
+    return promise
+  },
+
+  createWebsite (website) {
+    const self = this
+    const promise = new Promise(function (resolve, reject) {
+      self.createWebsiteDirIfNotExist()
+        .then(function () {
+          fs.mkdir(websitesFolder + '/' + website, function (err) {
+            if (err) reject(err)
+
+            JekyllManager.run_jekyll_init(website, function (err, resp) {
+              if (err) reject(err)
+              resolve(resp)
+            })
+          })
+        }, function (err) {
+          console.log('something went wrong creating a website dir', err)
+        })
+    })
+    return promise
   },
 
   updateWebsitesList () {
@@ -52,20 +65,28 @@ module.exports = {
         resolve(dirs)
       })
     })
+
     return promise
   },
 
   removeWebsite (website) {
-    rimraf(websitesFolder + '/' + website, function (err) {
-      if (err) console.log(err)
+    const promise = new Promise(function (resolve, reject) {
+      rimraf(websitesFolder + '/' + website, function (err) {
+        if (err) reject(err)
+        resolve()
+      })
     })
+    return promise
   },
 
   serveWebsite (website) {
-    JekyllManager.run_jekyll_website(website, function (err, resp) {
-      if (err) console.log(err)
-      console.log('resp', resp)
+    const promise = new Promise(function (resolve, reject) {
+      JekyllManager.run_jekyll_website(website, function (err, resp) {
+        if (err) reject(err)
+        resolve(resp)
+      })
     })
+    return promise
   },
 
   getWebsiteMarkdownFiles (website) {

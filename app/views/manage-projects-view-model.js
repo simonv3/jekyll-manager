@@ -10,10 +10,12 @@ module.exports = function ManageProjectsViewModel () {
 
   self.addWebsite = function () {
     var site = this.newWebsite()
-    WebsitesManager.createWebsite(site, function (err, resp) {
-      if (err) console.log(err)
-      console.log('done initializing jekyll site')
-    })
+    WebsitesManager.createWebsite(site)
+      .then(function (resp) {
+        console.log('done initializing jekyll site')
+      }, function (err) {
+        console.log('error while creating site', err)
+      })
   }
 
   self.setWebsites = function (dirs) {
@@ -25,11 +27,16 @@ module.exports = function ManageProjectsViewModel () {
 
   self.removeWebsite = function (website) {
     WebsitesManager.removeWebsite(website)
-    self.websites.remove(website)
+      .then(function () {
+        self.websites.remove(website)
+      })
   }
 
   self.runWebsite = function (website) {
     WebsitesManager.serveWebsite(website)
+      .then(function (resp) {
+        console.log('done serving', resp)
+      })
   }
 
   self.openWebsite = function (website) {
@@ -37,7 +44,7 @@ module.exports = function ManageProjectsViewModel () {
     WebsitesManager.getWebsiteMarkdownFiles(website)
       .then(function (websiteObj) {
         self.chosenWebsiteData(websiteObj)
-      }, function(err) {
+      }, function (err) {
         console.log(err)
       })
   }
