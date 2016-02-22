@@ -2,6 +2,7 @@ const fs = require('fs')
 const walk = require('walk')
 const rimraf = require('rimraf')
 const watch = require('node-watch')
+const Promise = require('promise')
 const helpers = require('./helpers')
 const JekyllManager = require('./jekyll-manager')
 
@@ -12,7 +13,6 @@ module.exports = {
   watchWebsitesList (callback) {
     const self = this
     watch(websitesFolder, {recursive: false}, function (websites) {
-      console.log('websites changed')
       self.updateWebsitesList(callback)
     })
   },
@@ -44,11 +44,15 @@ module.exports = {
     })
   },
 
-  updateWebsitesList (callback) {
-    fs.readdir(websitesFolder + '/', function (err, dirs) {
-      if (err) console.log(err)
-      callback(dirs)
+  updateWebsitesList () {
+    // const self = this
+    const promise = new Promise(function (resolve, reject) {
+      fs.readdir(websitesFolder + '/', function (err, dirs) {
+        if (err) reject(err)
+        resolve(dirs)
+      })
     })
+    return promise
   },
 
   removeWebsite (website) {
@@ -64,37 +68,39 @@ module.exports = {
     })
   },
 
-  getWebsiteMarkdownFiles (website, callback) {
-    website = websitesFolder + '/' + website
+  getWebsiteMarkdownFiles (website) {
+    const promise = new Promise(function (resolve, reject) {
+      website = websitesFolder + '/' + website
 
-    const websiteObj = {
-      path: website,
-      markdownFiles: []
-    }
-
-    const walker = walk.walk(website)
-
-    walker.on('file', function (root, fileStats, next) {
-      const extension = helpers.getFileExtension(fileStats.name)
-      if (extension === 'md') {
-        websiteObj.markdownFiles.push({
-          dirPath: root + '/' + fileStats.name,
-          name: fileStats.name,
-          type: extension,
-          fileStats: fileStats
-        })
+      const websiteObj = {
+        path: website,
+        markdownFiles: []
       }
-      next()
+
+      const walker = walk.walk(website)
+
+      walker.on('file', function (root, fileStats, next) {
+        const extension = helpers.getFileExtension(fileStats.name)
+        if (extension === 'md') {
+          websiteObj.markdownFiles.push({
+            dirPath: root + '/' + fileStats.name,
+            name: fileStats.name,
+            type: extension,
+            fileStats: fileStats
+          })
+        }
+        next()
+      })
+
+      walker.on('errors', function (root, nodeStatsArray, next) {
+        next()
+      })
+      walker.on('end', function () {
+        resolve(websiteObj)
+      })
     })
 
-    walker.on('errors', function (root, nodeStatsArray, next) {
-      next()
-    })
-
-    walker.on('end', function () {
-      console.log(websiteObj)
-      return callback(websiteObj)
-    })
+    return promise
   }
 
 }

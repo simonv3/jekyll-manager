@@ -34,6 +34,11 @@ module.exports = function ManageProjectsViewModel () {
 
   self.openWebsite = function (website) {
     self.chosenWebsiteId(website)
-    WebsitesManager.getWebsiteMarkdownFiles(website, self.chosenWebsiteData)
+    WebsitesManager.getWebsiteMarkdownFiles(website)
+      .then(function (websiteObj) {
+        self.chosenWebsiteData(websiteObj)
+      }, function(err) {
+        console.log(err)
+      })
   }
 }

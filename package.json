@@ -27,6 +27,7 @@
     "gulp": "^3.9.1"
   },
   "dependencies": {
+    "promise": "^7.1.1",
     "rimraf": "^2.5.2",
     "walk": "^2.3.9",
     "watch": "^0.17.1"

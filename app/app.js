@@ -9,8 +9,11 @@ WebsitesManager.watchWebsitesList(function (dirs) {
   mpvm.setWebsites(dirs)
 })
 
-WebsitesManager.updateWebsitesList(function (dirs) {
-  mpvm.setWebsites(dirs)
-})
+WebsitesManager.updateWebsitesList()
+  .then(function (dirs) {
+    mpvm.setWebsites(dirs)
+  }, function (err) {
+    console.log(err)
+  })
 
 ko.applyBindings(mpvm)
