@@ -43,9 +43,9 @@
     <div class="view-markdown-file"
       data-bind="with: chosenMarkdownFile">
       <h2>Edit Content</h2>
-      <textarea data-bind="text: $data">
+      <textarea data-bind="value: content">
       </textarea>
-      <small>Content won't be saved, we're just not there yet!</small>
+      <button data-bind="click: $root.saveMarkdownFile">Save</button>
     </div>
 
     <script type='text/javascript' src='../bower_components/knockout/dist/knockout.js'></script>

@@ -125,11 +125,23 @@ module.exports = {
   },
 
   getMarkdownFileContent (file) {
-    console.log(file.dirPath)
     const promise = new Promise(function (resolve, reject) {
-      fs.readFile(file.dirPath, 'utf8', function (err,data) {
+      fs.readFile(file.dirPath, 'utf8', function (err, data) {
         if (err) reject(err)
-        resolve(data)
+        file.content = data
+        resolve(file)
+      })
+    })
+
+    return promise
+  },
+
+  writeMarkdownFileContent (filePath, content) {
+    const promise = new Promise(function (resolve, reject) {
+      fs.writeFile(filePath, content, 'utf8', function (err, data) {
+        if (err) reject(err)
+        console.log(err, data)
+        resolve(true)
       })
     })
 
