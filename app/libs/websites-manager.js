@@ -3,6 +3,7 @@ const walk = require('walk')
 const rimraf = require('rimraf')
 const watch = require('node-watch')
 const Promise = require('promise')
+const simpleGit = require('simple-git')()
 const helpers = require('./helpers')
 const JekyllManager = require('./jekyll-manager')
 
@@ -58,10 +59,15 @@ module.exports = {
   },
 
   createWebsiteFromRepository (repo) {
-    // stub
+    const promise = new Promise(function (resolve, reject) {
+      const repoName = repo.split(':')[1]
+      simpleGit.clone(repo, websitesFolder + '/' + repoName, function (err, data) {
+        if (err) reject(err)
+        resolve(data)
+      })
+    })
 
-    // run 'git clone repo'
-    return 'stubbed'
+    return promise
   },
 
   updateWebsitesList () {
