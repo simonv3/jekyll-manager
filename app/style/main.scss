@@ -1,9 +1,13 @@
-.clickable {
-  cursor: pointer;
-}
-
 body {
   font-family: "Charter"
+}
+
+.content {
+  display: flex;
+
+  div:not(:first-child) {
+    flex-grow: 1;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,5 +26,11 @@ button {
   cursor: pointer;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
+@import "components/sidebar";
 @import "components/your-websites";
 @import "components/edit-markdown";
+@import "components/website-files";

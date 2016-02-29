@@ -7,52 +7,62 @@
   </head>
   <body>
 
-    <div class="sidebar">
-      <h1>Hyde: A Jekyll Manager</h1>
+    <div class="content">
 
-      <!-- websites list -->
-      <div>
-        <h2>Your Websites:</h2>
-        <ul class="your-websites" data-bind="foreach: websites">
-          <li>
-            <span class="clickable" data-bind="text: $data, click: $root.openWebsite"></span>
-            <div class="site-actions">
-              <button data-bind="click: $root.runWebsite">serve</button>
-              <button data-bind="click: $root.removeWebsite">x</button>
-            </div>
+      <div class="sidebar">
+        <h1>Hyde: A Jekyll Manager</h1>
+
+        <!-- websites list -->
+        <div>
+          <h2>Your Websites:</h2>
+          <ul class="your-websites" data-bind="foreach: websites">
+            <li>
+              <span class="clickable" data-bind="text: $data, click: $root.openWebsite"></span>
+              <div class="site-actions">
+                <button data-bind="click: $root.runWebsite">serve</button>
+                <button data-bind="click: $root.removeWebsite">x</button>
+              </div>
+            </li>
+          </ul>
+          <form>
+            <p>Create a new website?</p>
+            <label>Site Name:</label>
+            <input data-bind="value: newWebsite" type="input"/>
+            <button data-bind="click: addWebsite">Create</button>
+          </form>
+          <form>
+            <p>Or supply a git repository:</p>
+            <label>Repository:</label>
+            <input data-bind="value: gitRepository" type="input" placeholder="eg. git@github.com:simonv3/jekyll-manager.git"/>
+            <button data-bind="click: addGitRepo">Create</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- files -->
+      <div class="view-website-files"
+        data-bind="with: chosenWebsiteData">
+        <h2>Website Content Files</h2>
+        <ul data-bind="foreach: markdownFiles">
+          <li class="clickable" data-bind="text: name, click: $root.openMarkdownFile">
           </li>
         </ul>
-        <form>
-          <p>Create a new website?</p>
-          <label>Site Name:</label>
-          <input data-bind="value: newWebsite" type="input"/>
-          <button data-bind="click: addWebsite">Create</button>
-        </form>
       </div>
-    </div>
 
-    <!-- files -->
-    <div class="view-website-files"
-      data-bind="with: chosenWebsiteData">
-      <h2>Website Content Files</h2>
-      <ul data-bind="foreach: markdownFiles">
-        <li class="clickable" data-bind="text: name, click: $root.openMarkdownFile">
-        </li>
-      </ul>
-    </div>
+      <!-- file -->
+      <div class="view-markdown-file"
+        data-bind="with: chosenMarkdownFile">
+        <h2>Edit Content</h2>
+        <form>
+        <label>Edit name:</label>
+        <input type="text" data-bind="value: name"/>
+        <button data-bind="click: $root.saveFileName">Save</button>
+        </form>
+        <textarea data-bind="value: content">
+        </textarea>
+        <button data-bind="click: $root.saveMarkdownFile">Save</button>
+      </div>
 
-    <!-- file -->
-    <div class="view-markdown-file"
-      data-bind="with: chosenMarkdownFile">
-      <h2>Edit Content</h2>
-      <form>
-      <label>Edit name:</label>
-      <input type="text" data-bind="value: name"/>
-      <button data-bind="click: $root.saveFileName">Save</button>
-      </form>
-      <textarea data-bind="value: content">
-      </textarea>
-      <button data-bind="click: $root.saveMarkdownFile">Save</button>
     </div>
 
     <script type='text/javascript' src='../bower_components/knockout/dist/knockout.js'></script>
