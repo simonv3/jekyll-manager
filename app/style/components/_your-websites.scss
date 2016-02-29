@@ -1,0 +1,16 @@
+.your-websites {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid lightgrey;
+}
+
+.your-websites li {
+  padding: 1rem;
+  border-bottom: 1px solid lightgrey;
+}
+
+.site-actions {
+  float: right;
+  display: inline-block
+}

@@ -57,6 +57,13 @@ module.exports = {
     return promise
   },
 
+  createWebsiteFromRepository (repo) {
+    // stub
+
+    // run 'git clone repo'
+    return 'stubbed'
+  },
+
   updateWebsitesList () {
     // const self = this
     const promise = new Promise(function (resolve, reject) {

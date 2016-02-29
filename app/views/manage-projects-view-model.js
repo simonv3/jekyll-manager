@@ -4,6 +4,7 @@ module.exports = function ManageProjectsViewModel () {
   const self = this
 
   self.newWebsite = ko.observable('')
+  self.gitRepository = ko.observable('')
   self.chosenWebsiteId = ko.observable()
   self.chosenWebsiteData = ko.observable()
   self.chosenMarkdownFileId = ko.observable()
@@ -13,6 +14,16 @@ module.exports = function ManageProjectsViewModel () {
   self.addWebsite = function () {
     var site = this.newWebsite()
     WebsitesManager.createWebsite(site)
+      .then(function (resp) {
+        console.log('done initializing jekyll site')
+      }, function (err) {
+        console.log('error while creating site', err)
+      })
+  }
+
+  self.addGitRepo = function () {
+    var repo = this.gitRepository()
+    WebsitesManager.createWebsiteFromRepository(repo)
       .then(function (resp) {
         console.log('done initializing jekyll site')
       }, function (err) {
