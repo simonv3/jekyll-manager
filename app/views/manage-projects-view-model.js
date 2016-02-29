@@ -55,15 +55,21 @@ module.exports = function ManageProjectsViewModel () {
     self.chosenMarkdownFileId(file)
     WebsitesManager.getMarkdownFileContent(file)
       .then(function (file) {
-        console.log('back in mvc', file)
+        console.log(file);
         self.chosenMarkdownFile(file)
       }, function (err) {
         console.log(err)
       })
   }
 
+  self.renameFile = function (file) {
+    WebsitesManager.renameFile(file.dirPath, self.chosenMarkdownFile().content)
+      .then(function() {
+
+      })
+  }
+
   self.saveMarkdownFile = function (file) {
-    console.log('saving', file)
     WebsitesManager.writeMarkdownFileContent(file.dirPath, self.chosenMarkdownFile().content)
       .then(function (success) {
         console.log('success!')

@@ -1,12 +1,19 @@
 'use strict'
 
 var gulp = require('gulp')
+var sass = require('gulp-sass')
+var minifyCSS = require('gulp-minify-css')
+var gulpif = require('gulp-if')
 var electron = require('electron-connect').server.create()
 
-// var electron = require('../../').server.create({
-//   useGlobalElectron: true,
-//   verbose: true
-// });
+var isProduction = false // (process.env.NODE_ENV !== 'development');
+
+gulp.task('style', function () {
+  return gulp.src('./app/style/main.scss')
+    .pipe(sass())
+    .pipe(gulpif(isProduction, minifyCSS()))
+    .pipe(gulp.dest('./app/build/style/'))
+})
 
 gulp.task('serve', function () {
   // Start browser process
@@ -22,6 +29,9 @@ gulp.task('serve', function () {
   // electron.start(function () {
   //   console.log('started');
   // });
+
+  // Watch styles
+  gulp.watch('app/style/**/*.*', ['style'])
 
   // Restart browser process
   gulp.watch('main.js', electron.restart)
